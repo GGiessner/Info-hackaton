@@ -3,19 +3,20 @@ import re
 from docx import Document
 from openai import OpenAI
 
-# Paramètres: Attention, il faut remplacer le nom des dossier par le nom des fichers de la mission
+## Paramètres: Attention, il faut remplacer le nom des dossier par le nom des fichers de la mission
 
 EXCEL_FILE = "data.xlsx"         # Tableau de données
 NOTES_FILE = "notes.txt"         # Notes brutes
 WORD_TEMPLATE = "template.docx"  # Modèle Word
 WORD_OUTPUT = "result.docx"      # Fichier final
+doc = Document(WORD_TEMPLATE)
 
-# Infos Excel
+## Infos Excel
 
 df = pd.read_excel(EXCEL_FILE)
 excel_data = dict(zip(df['identifiant'], df['valeur']))
 
-# Infos notes
+## Infos notes
 
 notes_data = {}
 with open(NOTES_FILE, 'r') as f:
@@ -24,9 +25,19 @@ with open(NOTES_FILE, 'r') as f:
             ident, content = line.strip().split("::", 1)
             notes_data[ident] = content
 
-# doc word
+## code note
 
-doc = Document(WORD_TEMPLATE)
+for paragraph in doc.paragraphs:
+    for match in re.finditer(r'\{1(\w+)\}', paragraph.text):
+        ident = match.group(1)
+        #if ident in excel_data:
+        #    paragraph.text = paragraph.text.replace(match.group(0), excel_data[ident])
+        if ident in notes_data:
+            paragraph.text = paragraph.text.replace(match.group(0), notes_data[ident])
+
+
+
+## code excel
 
 
 
@@ -34,23 +45,9 @@ doc = Document(WORD_TEMPLATE)
 
 client = OpenAI()
 
-# code note
-
-# Parcourir chaque paragraphe du document
-for paragraph in doc.paragraphs:
-    # Trouver tous les identifiants dans les accolades précédés par un 1
-    for match in re.finditer(r'\{1\s+(\w+)\}', paragraph.text):
-        ident = match.group(1)
-        # Remplacer par les données correspondantes
-        #if ident in excel_data:
-        #    paragraph.text = paragraph.text.replace(match.group(0), excel_data[ident])
-        if ident in notes_data:
-            paragraph.text = paragraph.text.replace(match.group(0), notes_data[ident])
+## code IA
 
 
-# code excel
-
-# code IA
 
 
 # Remplacer les identifiants 
