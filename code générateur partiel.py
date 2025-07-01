@@ -34,6 +34,12 @@ doc = Document(WORD_TEMPLATE)
 
 client = OpenAI()
 
+# code note
+
+# code excel
+
+# code IA
+
 
 # Remplacer les identifiants 
 
