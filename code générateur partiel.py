@@ -36,6 +36,18 @@ client = OpenAI()
 
 # code note
 
+# Parcourir chaque paragraphe du document
+for paragraph in doc.paragraphs:
+    # Trouver tous les identifiants dans les accolades précédés par un 1
+    for match in re.finditer(r'\{1\s+(\w+)\}', paragraph.text):
+        ident = match.group(1)
+        # Remplacer par les données correspondantes
+        #if ident in excel_data:
+        #    paragraph.text = paragraph.text.replace(match.group(0), excel_data[ident])
+        if ident in notes_data:
+            paragraph.text = paragraph.text.replace(match.group(0), notes_data[ident])
+
+
 # code excel
 
 # code IA
