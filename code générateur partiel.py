@@ -30,8 +30,6 @@ with open(NOTES_FILE, 'r') as f:
 for paragraph in doc.paragraphs:
     for match in re.finditer(r'\{1(\w+)\}', paragraph.text):
         ident = match.group(1)
-        #if ident in excel_data:
-        #    paragraph.text = paragraph.text.replace(match.group(0), excel_data[ident])
         if ident in notes_data:
             paragraph.text = paragraph.text.replace(match.group(0), notes_data[ident])
 
