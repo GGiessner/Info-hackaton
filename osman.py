@@ -1,6 +1,8 @@
 import pandas as pd
 import re
 
+chemin_fichier = "Gjoa MdP/Exemple 2/20250401-Devis-Client-Exemple 2.xlsx"
+
 def df_to_string(dataframe):
     """Transforme un DataFrame en chaîne avec les règles demandées."""
     return '; '.join([
@@ -35,7 +37,9 @@ def extraire_tous_les_lots_depuis_excel(fichier_excel, nom_feuille='Devis'):
 
 # Exemple d'utilisation
 if __name__ == "__main__":
-    chemin_fichier = "Gjoa MdP/Exemple 2/20250401-Devis-Client-Exemple 2.xlsx"  # adapte le chemin selon ton cas
     resultats = extraire_tous_les_lots_depuis_excel(chemin_fichier)
     for cle, valeur in resultats.items():
         print(f"{cle}:\n{valeur}\n")
+
+def Axes():
+    return extraire_tous_les_lots_depuis_excel(chemin_fichier)
