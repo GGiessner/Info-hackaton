@@ -1,4 +1,3 @@
-import pandas as pd
 import re
 from docx import Document
 
@@ -29,6 +28,5 @@ for paragraph in doc.paragraphs:
 # Sauvegarder nouveau Word
 
 doc.save(WORD_OUTPUT)
-
 print(f" Nouveau document créé : {WORD_OUTPUT}")
 
