@@ -41,11 +41,6 @@ for paragraph in doc.paragraphs:
 ## code IA
 
 
-# Parcourir tout le document
-
-for paragraph in doc.paragraphs:
-    replace_in_paragraph(paragraph)
-
 # Sauvegarder nouveau Word
 
 doc.save(WORD_OUTPUT)
