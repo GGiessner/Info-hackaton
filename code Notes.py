@@ -30,3 +30,45 @@ for paragraph in doc.paragraphs:
 doc.save(WORD_OUTPUT)
 print(f" Nouveau document créé : {WORD_OUTPUT}")
 
+
+# Autre possibilité
+
+from docx import Document
+
+# Chemins des fichiers
+NOTES_FILE = "C:/Users/guill/Documents/Test notes/test_notes.txt"
+WORD_TEMPLATE = "C:/Users/guill/Documents/Test notes/template_mod.docx"
+WORD_OUTPUT = "result.docx"  # Utilisez un chemin relatif
+
+# Fonction pour lire les données du fichier texte
+def lire_notes(fichier):
+    notes_data = {}
+    with open(fichier, 'r', encoding='utf-8') as f:
+        for line in f:
+            if "::" in line:
+                ident, content = line.strip().split("::", 1)
+                notes_data[ident.strip()] = content.strip()
+    return notes_data
+
+# Fonction pour modifier le document Word
+def modifie_doc(doc, remplace, remplacant):
+    for paragraph in doc.paragraphs:
+        if remplace in paragraph.text:
+            paragraph.text = paragraph.text.replace(remplace, remplacant)
+
+# Fonction pour créer le contrat
+def creation_contrat(doc, notes_data, doc_sortie):
+    for ident, content in notes_data.items():
+        modifie_doc(doc, f"{{1{ident}}}", content)
+    doc.save(doc_sortie)
+
+# Charger les données depuis le fichier texte
+notes_data = lire_notes(NOTES_FILE)
+
+# Charger le document Word
+doc = Document(WORD_TEMPLATE)
+
+# Créer le contrat
+creation_contrat(doc, notes_data, WORD_OUTPUT)
+
+print(f"Nouveau document créé : {WORD_OUTPUT}")
