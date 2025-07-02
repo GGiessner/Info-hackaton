@@ -38,11 +38,6 @@ for paragraph in doc.paragraphs:
 ## code excel
 
 
-
-# Préparation IA
-
-client = OpenAI()
-
 ## code IA
 
 
