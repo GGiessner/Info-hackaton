@@ -1,32 +1,30 @@
 import pandas as pd
 import re
 
-<<<<<<< HEAD
-=======
-chemin_fichier = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
-
->>>>>>> ba97a27df7e062726302d369e5ad9d8effd191f4
 def df_to_string(dataframe):
-    """Transforme un DataFrame en chaîne avec les règles demandées, en nettoyant les doublons."""
+    """Transforme un DataFrame en chaîne avec les règles demandées, nettoyée des doublons et des 'Lot X'."""
     lignes = []
     for _, row in dataframe.iterrows():
         contenu = [str(cell).strip() for cell in row if pd.notna(cell)]
         if contenu:
             ligne = ', '.join(contenu)
-            ligne = re.sub(r"Lot\s*\d+\s*:", "", ligne, flags=re.IGNORECASE)  # supprime "Lot X :"
+            # Supprime tout ce qui ressemble à "Lot 1 :", "Lot 1a :", etc.
+            ligne = re.sub(r"Lot\s*\d+[a-zA-Z]?\s*:", "", ligne, flags=re.IGNORECASE)
             lignes.append(ligne)
     result = '; '.join(lignes)
-    result = re.sub(r'(;\s*){2,}', '; ', result)  # remplace ";;" ou plus par "; "
+    result = re.sub(r'(;\s*){2,}', '; ', result)  # nettoie les ;; inutiles
     return result.strip()
 
 def extraire_tous_les_lots_depuis_excel(fichier_excel, nom_feuille='Devis'):
     df = pd.read_excel(fichier_excel, sheet_name=nom_feuille)
 
-    # Recherche des lignes contenant "Lot X"
-    lot_rows = df[df.iloc[:, 0].astype(str).str.contains(r"Lot\s*\d+", case=False, na=False)]
+    # Recherche des lignes contenant "Lot X" avec ou sans lettres
+    lot_rows = df[df.iloc[:, 0].astype(str).str.contains(r"Lot\s*\d+[a-zA-Z]?\s*:", case=False, na=False)]
     lot_indices = lot_rows.index.tolist()
     lot_labels = df.iloc[lot_indices, 0].tolist()
-    lot_titres = [re.sub(r"Lot\s*\d+\s*:", "", label).strip() for label in lot_labels]
+
+    # Nettoie les titres : supprime "Lot X :", "Lot 2b :", etc.
+    lot_titres = [re.sub(r"Lot\s*\d+[a-zA-Z]?\s*:", "", label, flags=re.IGNORECASE).strip() for label in lot_labels]
 
     resultats = {}
 
