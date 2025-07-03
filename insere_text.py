@@ -84,4 +84,4 @@ if __name__ == "__main__":
 
     fichier_sortie = "fichier_modifie.docx"
     word.save(fichier_sortie)
-    print("✅ Document généré :", fichier_sortie)
+    print("Document généré :", fichier_sortie)
