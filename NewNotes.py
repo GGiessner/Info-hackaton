@@ -30,7 +30,7 @@ def remplacer_identifiants(docx_path, txt_path, output_docx_path):
     doc.save(output_docx_path)
 
 # Chemins des fichiers
-docx_path = "Template.docx"
+docx_path = "Template_mod.docx"
 txt_path = 'notes.txt'
 output_docx_path = 'result.docx'
 reference = "reference.xlsx"
