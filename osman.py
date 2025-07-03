@@ -1,6 +1,11 @@
 import pandas as pd
 import re
 
+<<<<<<< HEAD
+=======
+chemin_fichier = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
+
+>>>>>>> ba97a27df7e062726302d369e5ad9d8effd191f4
 def df_to_string(dataframe):
     """Transforme un DataFrame en chaîne avec les règles demandées, en nettoyant les doublons."""
     lignes = []
