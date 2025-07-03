@@ -24,6 +24,8 @@ for paragraph in doc.paragraphs:
     for match in re.finditer(r'\{1(\w+)\}', paragraph.text):
         ident = match.group(1)
         if ident in notes_data:
+            print(" 1 ", paragraph.text)
+            print(" 2 ", paragraph.text.replace(match.group(0), notes_data[ident]))
             paragraph.text = paragraph.text.replace(match.group(0), notes_data[ident])
 
 # Sauvegarder nouveau Word
