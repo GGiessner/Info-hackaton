@@ -185,4 +185,4 @@ if __name__ == "__main__":
         descriptions_proches = trouver_descriptions_proches(
             catalogue_path, texte_ref=resultats["Contexte"], top_n=9
         )
-        ajouter_descriptions_word("proposition_test.docx", descriptions_proches)
+        ajouter_descriptions_word("proposition.docx", descriptions_proches)
