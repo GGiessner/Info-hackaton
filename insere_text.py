@@ -8,18 +8,18 @@ DEVIS = docs.devis_3_path
 df_devis = pd.read_excel(DEVIS)
 REFERENCE = "reference.xlsx"
 df_reference = pd.read_excel(REFERENCE)
-dict = proposition()
 word = Document("Template.docx")
-Contexte_Reference = proposition()
-Axes_remplis = remplissage()
-
-def extraire(df, ligne, colonne):
-    dict[ligne] = df[ligne][colonne]
+Contexte_Reference = proposition() #contexte et ref 
+Axes_remplis = remplissage() # Titre des axes et sous axes 
 
 def modifie_doc(doc, remplace, remplacant):
     for paragraphe in doc.paragraphs:
-        if remplace in paragraphe.text:
+        if f"[{remplace}]" in paragraphe.text:
             paragraphe.text = paragraphe.text.replace(remplace, remplacant)
+
+# mets des bullet points 
+def modifie_doc_bullet(doc, list):
+    
 
 def creation_contrat(doc, dict, doc_sortie):
     for elem in dict.keys():
@@ -29,6 +29,7 @@ def creation_contrat(doc, dict, doc_sortie):
 # donne le dictionnaire avec comme clé le nom du lot et comme valeur le prix (colonne 12)
 
 def ajout_dico(df, colonne):
+    list = []
     colonne_prix = df.iloc[:, colonne]
     i = 0
     while colonne_prix[i] != "Total arrondi":
@@ -36,6 +37,13 @@ def ajout_dico(df, colonne):
     i = i+1
     for j in range(i, len(colonne_prix)):
         if colonne_prix[j] != None:
-            dict[df_devis.iloc[j, 0]] = colonne_prix[j]
+            list.append(df_devis.iloc[j, 0] + f" : {colonne_prix[j]}")
+    return list
 
+Prix = ajout_dico(df_devis, 12)
 
+for keys, values in Contexte_Reference.items():
+    modifie_doc(word, keys, values)
+for keys, values in Axes_remplis.items():
+    modifie_doc(word, keys, values)
+modifie_doc(word, "")
