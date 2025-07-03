@@ -1,14 +1,17 @@
 import pandas as pd 
 from docx import Document
 from generateur_proposition import proposition
+from remplissage_axes import remplissage
+import docs
 
-DEVIS = "Gjoa MdP/Exemple 1/20250631-Client-Sujet-Devis exemple 1.xlsx"
+DEVIS = docs.devis_3_path
 df_devis = pd.read_excel(DEVIS)
 REFERENCE = "reference.xlsx"
 df_reference = pd.read_excel(REFERENCE)
 dict = proposition()
 word = Document("Template.docx")
 Contexte_Reference = proposition()
+Axes_remplis = remplissage()
 
 def extraire(df, ligne, colonne):
     dict[ligne] = df[ligne][colonne]
@@ -25,17 +28,14 @@ def creation_contrat(doc, dict, doc_sortie):
 
 # donne le dictionnaire avec comme clé le nom du lot et comme valeur le prix (colonne 12)
 
-#def ajout_dico(df, colonne):
-    #colonne_prix = df.iloc[:, colonne]
-    #i = 0
-    #while colonne_prix[i] != "Total arrondi":
-        #i = i+1
-    #i = i+1
-    #for j in range(i, len(colonne_prix)):
-        #if colonne_prix[j] != None:
-            #dict[df_devis.iloc[j, 0]] = colonne_prix[j]
-
-creation_contrat(word, dict, "contrat.docx")
-
+def ajout_dico(df, colonne):
+    colonne_prix = df.iloc[:, colonne]
+    i = 0
+    while colonne_prix[i] != "Total arrondi":
+        i = i+1
+    i = i+1
+    for j in range(i, len(colonne_prix)):
+        if colonne_prix[j] != None:
+            dict[df_devis.iloc[j, 0]] = colonne_prix[j]
 
 

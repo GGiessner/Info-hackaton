@@ -6,6 +6,7 @@ import requests
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
+import docs
 
 # === FONCTIONS UTILITAIRES ===
 
@@ -140,16 +141,16 @@ Sélectionne les 9 descriptions les plus proches ou les plus utiles pour illustr
 
 # === CHEMINS DES FICHIERS ===
 
-notes_ex1_path = "Gjoa MdP/Exemple 1/Exemple 1 - notes FC.docx"
-devis_ex1_path = "Gjoa MdP/Exemple 1/20250631-Client-Sujet-Devis exemple 1.xlsx"
-prop_ex1_path  = "Gjoa MdP/Exemple 1/20250631-Gjoa-Sujet-Proposition.docx"
+notes_ex1_path = docs.notes_ex1_path
+devis_ex1_path = docs.devis_ex1_path
+prop_ex1_path  = docs.prop_ex1_path
 
-notes_ex2_path = "Gjoa MdP/Exemple 2/Exemple 2 - notes FC.docx"
-devis_ex2_path = "Gjoa MdP/Exemple 2/20250401-Devis-Client-Exemple 2.xlsx"
-prop_ex2_path  = "Gjoa MdP/Exemple 2/20250402-Gjoa-Client-Exemple 2-Proposition.docx"
+notes_ex2_path = docs.notes_ex2_path
+devis_ex2_path = docs.devis_ex2_path
+prop_ex2_path  = docs.prop_ex2_path
 
-notes_3_path   = "Gjoa MdP/Test/Test - notes FC.docx"
-devis_3_path   = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
+notes_3_path   = docs.notes_3_path
+devis_3_path   = docs.devis_3_path
 Template       = "Template.docx"
 catalogue_path = "Gjoa MdP/202209-Liste références et bilans projets - extract MdP.xlsx"
 

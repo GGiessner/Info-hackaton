@@ -1,11 +1,12 @@
 import re
 from docx import Document
+import docs
 
 ## Paramètres: Attention, il faut remplacer le nom des dossier par le nom des fichers de la mission
 
-NOTES_FILE = "Gjoa MdP/Test/Test - notes FC.docx"        # Notes brutes
+NOTES_FILE = docs.notes_3_path
 WORD_TEMPLATE = "Template_mod.docx"  # Modèle Word
-WORD_OUTPUT = "result.docx"      # Fichier final
+WORD_OUTPUT = docs.sortie_path
 doc = Document(WORD_TEMPLATE)
 
 ## Infos notes
@@ -36,9 +37,9 @@ print(f" Nouveau document créé : {WORD_OUTPUT}")
 from docx import Document
 
 # Chemins des fichiers
-NOTES_FILE = "C:/Users/guill/Documents/Test notes/test_notes.txt"
-WORD_TEMPLATE = "C:/Users/guill/Documents/Test notes/template_mod.docx"
-WORD_OUTPUT = "result.docx"  # Utilisez un chemin relatif
+NOTES_FILE = docs.notes_3_path
+WORD_TEMPLATE = "Template.docx"
+WORD_OUTPUT = docs.sortie_path
 
 # Fonction pour lire les données du fichier texte
 def lire_notes(fichier):
