@@ -71,4 +71,4 @@ def remplissage():
     nouveau_dictionnaire = traiter_axes(Axe)
     return nouveau_dictionnaire
 
-print(remplissage_axes())
+print(remplissage())
