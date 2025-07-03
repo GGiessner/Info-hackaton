@@ -177,9 +177,6 @@ if __name__ == "__main__":
     print("Appel à Mistral via Ollama...")
     resultats = interroger_mistral(prompt)
 
-    print("Rendu final dans Word...")
-    enregistrer_resultats_word(resultats, "proposition_test.docx")
-
     if "Contexte" in resultats:
         print("Recherche de descriptions similaires...")
         descriptions_proches = trouver_descriptions_proches(

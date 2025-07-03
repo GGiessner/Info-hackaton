@@ -10,7 +10,7 @@ excel = ["Lot 1 : Tendances de marché", "Lot 2 : Miroirs clients", "Lot 3 : Con
 word = Document("Template.docx")
 
 def extraire(df, ligne, colonne):
-    dict[f"[2{ligne}"] = df[ligne][colonne]
+    dict[ligne] = df[ligne][colonne]
 
 def modifie_doc(doc, remplace, remplacant):
     for paragraphe in doc.paragraphs:
@@ -23,26 +23,30 @@ def creation_contrat(doc, dict, doc_sortie):
     doc.save(doc_sortie)
 
 # cherche les infos dans le devis
-for elem in excel:
-    extraire(df_devis, elem, 12)
+#for elem in excel:
+    #extraire(df_devis, elem, 12)
 
 # cherche les expérieneces 
 
 def experience_commune(mot, groupe):
-    compteur = 0
     mot_clés = groupe.split()
-    for elem in mot_clés:
-        if mot == elem:
+    for elem in groupe:
+        if groupe == elem:
             return mot 
     return None 
 
 def sujet_commun(mot, df):
     L = []
-    for elem in df:
+    for elem in df["Mots clés (secteur, fonction, sujet)"]:
         if experience_commune(mot, elem) != None:
             L.append(experience_commune(mot, elem))
     if len(L) < 8:
         return L
     else:
         return L[:8]     
+
+for elem in excel:
+    extraire(df_devis, elem, 12)
+
+print(dict)
 
