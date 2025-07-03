@@ -37,4 +37,3 @@ def ajout_dico(df, colonne):
     for j in range(i, len(colonne_prix)):
         if colonne_prix[j] != None:
             dict[df_devis.iloc[j, 0]] = colonne_prix[j]
-
