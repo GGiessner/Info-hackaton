@@ -66,7 +66,7 @@ if __name__ == "__main__":
         json.dump(nouveau_dictionnaire, f, ensure_ascii=False, indent=2)
 """
 
-def remplissage_axes():
+def remplissage():
     Axe = Axes()
     nouveau_dictionnaire = traiter_axes(Axe)
     return nouveau_dictionnaire

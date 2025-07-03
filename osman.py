@@ -1,7 +1,8 @@
 import pandas as pd
 import re
+import docs
 
-chemin_fichier = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
+chemin_fichier = docs.devis_3_path
 
 def df_to_string(dataframe):
     """Transforme un DataFrame en chaîne avec les règles demandées, nettoyée des doublons et des 'Lot X'."""
