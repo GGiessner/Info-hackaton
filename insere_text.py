@@ -7,7 +7,6 @@ df_devis = pd.read_excel(DEVIS)
 REFERENCE = "reference.xlsx"
 df_reference = pd.read_excel(REFERENCE)
 dict = {}
-excel = ["Lot 1 : Tendances de marché", "Lot 2 : Miroirs clients", "Lot 3 : Concurrence européenne"]
 word = Document("Template.docx")
 Contexte_Reference = proposition()
 
@@ -24,31 +23,16 @@ def creation_contrat(doc, dict, doc_sortie):
         modifie_doc(doc, elem, dict[elem])
     doc.save(doc_sortie)
 
-# cherche les infos dans le devis
-#for elem in excel:
-    #extraire(df_devis, elem, 12)
+# donne le dictionnaire avec comme clé le nom du lot et comme valeur le prix (colonne 12)
 
-# cherche les expérieneces 
+def ajout_dico(df, colonne):
+    colonne_prix = df.iloc[:, colonne]
+    i = 0
+    while colonne_prix[i] != "Total arrondi":
+        i = i+1
+    i = i+1
+    for j in range(i, len(colonne_prix)):
+        if colonne_prix[j] != None:
+            dict[df_devis.iloc[j, 0]] = colonne_prix[j]
 
-def experience_commune(mot, groupe):
-    mot_clés = groupe.split()
-    for elem in groupe:
-        if groupe == elem:
-            return mot 
-    return None 
-
-def sujet_commun(mot, df):
-    L = []
-    for elem in df["Mots clés (secteur, fonction, sujet)"]:
-        if experience_commune(mot, elem) != None:
-            L.append(experience_commune(mot, elem))
-    if len(L) < 8:
-        return L
-    else:
-        return L[:8]     
-
-for elem in excel:
-    extraire(df_devis, elem, 12)
-
-print(dict)
 
