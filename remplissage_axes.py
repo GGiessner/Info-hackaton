@@ -1,5 +1,6 @@
 import json
 import requests
+import sys
 from osman import Axes
 
 def parser_sous_axes(texte_axe):
@@ -16,9 +17,9 @@ def parser_sous_axes(texte_axe):
 
 def generer_texte_mistral(sous_axe, description=None):
     if description:
-        prompt = f"Génère une phrase pour décrire le sous-axe suivant, dans le cadre d'un conseil en stratégie: « {sous_axe} », en t'appuyant sur la descriptiondescription: « {description} »."
+        prompt = f"Génère une courte phrase en français (peut inclure des mots techniques en anglais) pour décrire succinctement le sous-axe suivant, dans le cadre d'un conseil en stratégie : « {sous_axe} », en t'appuyant sur la description : « {description} »."
     else:
-        prompt = f"Génère une courte phrase pour décrire le sous-axe suivant, dans le cadre d'un conseil en stratégie: « {sous_axe} »."
+        prompt = f"Génère une courte phrase en français (peut inclure des mots techniques en anglais) pour décrire succinctement le sous-axe suivant, dans le cadre d'un conseil en stratégie : « {sous_axe} »."
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
@@ -32,23 +33,39 @@ def generer_texte_mistral(sous_axe, description=None):
 
 def traiter_axes(Axe):
     resultat = {}
-    for i in range(1, 4):  # Pour AXE1, AXE2, AXE3
+    for i in range(1, 4):  # AXE1, AXE2, AXE3
         titre_cle = f"TITRE_AXE{i}"
         contenu_cle = f"AXE{i}"
 
-        titre = Axe.get(titre_cle, f"Axe {i}")
-        texte = Axe.get(contenu_cle, "")
+        # Copier le titre tel quel
+        resultat[titre_cle] = Axe.get(titre_cle, f"Axe {i}")
 
+        # Générer les textes pour chaque sous-axe
+        texte = Axe.get(contenu_cle, "")
         sous_axes = parser_sous_axes(texte)
         textes_genérés = []
         for nom, desc in sous_axes:
-            texte = generer_texte_mistral(nom, desc)
-            textes_genérés.append(texte)
+            texte_genere = generer_texte_mistral(nom, desc)
+            textes_genérés.append(texte_genere)
 
-        resultat[titre] = " ; ".join(textes_genérés)
+        # Stocker le texte généré dans AXE{i}
+        resultat[contenu_cle] = " ; ".join(textes_genérés)
     return resultat
 
+"""
 if __name__ == "__main__":
     Axe = Axes()
     nouveau_dictionnaire = traiter_axes(Axe)
-    print(json.dumps(nouveau_dictionnaire, indent=2, ensure_ascii=False))
+
+    # Affichage correct dans Git Bash
+    print(json.dumps(nouveau_dictionnaire, indent=2, ensure_ascii=False), file=sys.stdout)
+
+    # Sauvegarde facultative
+    with open("resultat.json", "w", encoding="utf-8") as f:
+        json.dump(nouveau_dictionnaire, f, ensure_ascii=False, indent=2)
+"""
+
+def remplissage_axes():
+    Axe = Axes()
+    nouveau_dictionnaire = traiter_axes(Axe)
+    return nouveau_dictionnaire

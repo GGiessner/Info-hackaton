@@ -3,8 +3,8 @@ from docx import Document
 
 ## Paramètres: Attention, il faut remplacer le nom des dossier par le nom des fichers de la mission
 
-NOTES_FILE = "test_notes.txt"         # Notes brutes
-WORD_TEMPLATE = "template_mod.docx"  # Modèle Word
+NOTES_FILE = "Gjoa MdP/Test/Test - notes FC.docx"        # Notes brutes
+WORD_TEMPLATE = "Template_mod.docx"  # Modèle Word
 WORD_OUTPUT = "result.docx"      # Fichier final
 doc = Document(WORD_TEMPLATE)
 
