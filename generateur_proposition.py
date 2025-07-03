@@ -190,6 +190,6 @@ def proposition():
         df = pd.read_excel(catalogue_path)
         descriptions_catalogue = df["Description"].dropna().astype(str).tolist()
         descriptions_proches = trouver_descriptions_proches_mistral(resultats["Contexte"], descriptions_catalogue)
-        resultats["Descriptions similaires issues du catalogue"] = descriptions_proches
+        resultats["Références"] = descriptions_proches
     
     return resultats
