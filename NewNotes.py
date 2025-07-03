@@ -35,7 +35,6 @@ txt_path = 'notes.txt'
 output_docx_path = 'result.docx'
 reference = "reference.xlsx"
 
-sortie_path = "devis.docx"
 
 # Appeler la fonction
 remplacer_identifiants(docx_path, txt_path, output_docx_path)
