@@ -9,7 +9,7 @@ WORD_OUTPUT = docs.sortie_path
 doc = Document(WORD_TEMPLATE)
 
 ## Infos notes
-
+"""
 notes_data = {}
 with open(NOTES_FILE, 'r') as f:
     for line in f:
@@ -31,7 +31,7 @@ for paragraph in doc.paragraphs:
 
 doc.save(WORD_OUTPUT)
 print(f" Nouveau document créé : {WORD_OUTPUT}")
-
+"""
 
 # Autre possibilité
 

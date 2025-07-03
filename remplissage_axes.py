@@ -48,27 +48,11 @@ def traiter_axes(Axe):
             texte_genere = generer_texte_mistral(nom, desc)
             textes_genérés.append(texte_genere)
 
-        # Stocker le texte généré dans AXE{i}
-        resultat[contenu_cle] = " ; ".join(textes_genérés)
+        # Stocker la liste des textes dans AXE{i}
+        resultat[contenu_cle] = textes_genérés
     return resultat
-
-
-"""
-if __name__ == "__main__":
-    Axe = Axes()
-    nouveau_dictionnaire = traiter_axes(Axe)
-
-    # Affichage correct dans Git Bash
-    print(json.dumps(nouveau_dictionnaire, indent=2, ensure_ascii=False), file=sys.stdout)
-
-    # Sauvegarde facultative
-    with open("resultat.json", "w", encoding="utf-8") as f:
-        json.dump(nouveau_dictionnaire, f, ensure_ascii=False, indent=2)
-"""
 
 def remplissage():
     Axe = Axes()
     nouveau_dictionnaire = traiter_axes(Axe)
     return nouveau_dictionnaire
-
-print(remplissage())
