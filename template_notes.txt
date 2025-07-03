@@ -1,5 +1,3 @@
-Informations pour le contrat à remplir directement
-
 Nom prénom du ou des destinataires::
 Société::
 Adresse::
@@ -8,6 +6,3 @@ secteur::
 Objet::
 Date:: 
 le client::
-
-
-Notes pour la rédaction du contrat:

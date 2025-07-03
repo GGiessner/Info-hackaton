@@ -2,7 +2,6 @@ import re
 from docx import Document
 import docs
 
-## Paramètres: Attention, il faut remplacer le nom des dossier par le nom des fichers de la mission
 
 NOTES_FILE = docs.notes_3_path
 WORD_TEMPLATE = "Template_mod.docx"  # Modèle Word
