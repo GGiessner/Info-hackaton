@@ -1,3 +1,3 @@
 from osman import Axes
 
-print(Axes())
+Axe = Axes()
