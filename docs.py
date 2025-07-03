@@ -13,5 +13,6 @@ template_path = "Template.docx"
 template_mod_path = "Template_mod.docx"
 reference = "reference.xlsx"
 txt_path = 'notes.txt'
+template_Note_path='template_notes.docx'
 
 sortie_path = "contrat.docx"
