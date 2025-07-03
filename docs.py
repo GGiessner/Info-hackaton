@@ -10,6 +10,8 @@ notes_3_path = "Gjoa MdP/Test/Test - notes FC.docx"
 devis_3_path = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
 
 template_path = "Template.docx"
+template_mod_path = "Template_mod.docx"
 reference = "reference.xlsx"
+txt_path = 'notes.txt'
 
 sortie_path = "contrat.docx"

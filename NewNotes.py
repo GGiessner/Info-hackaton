@@ -1,11 +1,10 @@
 from docx import Document
-
+import docs
 
 # Chemins des fichiers
-docx_path = "Template_mod.docx"
-txt_path = 'notes.txt'
-output_docx_path = './result.docx'
-reference = "reference.xlsx"
+docx_path = docs.template_mod_path
+txt_path = docs.txt_path
+sortie_path = docs.sortie_path
 
 
 # Charger le document Word
@@ -30,13 +29,13 @@ for paragraph in doc.paragraphs:
     new_doc.add_paragraph(paragraph.text)
 
 # Parcourir chaque section du document pour les en-têtes
-    for section in doc.sections:
-        for header in section.header.paragraphs:
-            for identifiant, valeur in associations.items():
-                str = "{1" + identifiant + "}"
-                if str in paragraph.text:
-                    paragraph.text = paragraph.text.replace(str, valeur)
-            new_doc.add_paragraph(paragraph.text)
+for section in doc.sections:
+    for header in section.header.paragraphs:
+        for identifiant, valeur in associations.items():
+            str = "{1" + identifiant + "}"
+            if str in paragraph.text:
+                paragraph.text = paragraph.text.replace(str, valeur)
+        new_doc.add_paragraph(paragraph.text)
 
 
 # Parcourir chaque tableau du document
@@ -49,4 +48,4 @@ for table in doc.tables:
 
 
 # Sauvegarder le document modifié
-new_doc.save(output_docx_path)
+new_doc.save(sortie_path)
