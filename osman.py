@@ -1,11 +1,8 @@
 import pandas as pd
 import re
 
-<<<<<<< HEAD
-=======
 chemin_fichier = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
 
->>>>>>> 625801a3a10cc7c41454385fefd762046c147f8e
 def df_to_string(dataframe):
     """Transforme un DataFrame en chaîne avec les règles demandées, nettoyée des doublons et des 'Lot X'."""
     lignes = []

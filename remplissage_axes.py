@@ -33,7 +33,7 @@ def generer_texte_mistral(sous_axe, description=None):
 
 def traiter_axes(Axe):
     resultat = {}
-    for i in range(1, 4):  # AXE1, AXE2, AXE3
+    for i in range(1, len(Axe)//2 + 1):
         titre_cle = f"TITRE_AXE{i}"
         contenu_cle = f"AXE{i}"
 
@@ -52,6 +52,7 @@ def traiter_axes(Axe):
         resultat[contenu_cle] = " ; ".join(textes_genérés)
     return resultat
 
+
 """
 if __name__ == "__main__":
     Axe = Axes()
@@ -69,3 +70,5 @@ def remplissage_axes():
     Axe = Axes()
     nouveau_dictionnaire = traiter_axes(Axe)
     return nouveau_dictionnaire
+
+print(remplissage_axes())
