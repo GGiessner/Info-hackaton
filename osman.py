@@ -23,7 +23,7 @@ def extraire_tous_les_lots_depuis_excel(fichier_excel, nom_feuille='Devis'):
     for i, lot_index in enumerate(lot_indices):
         lot_num = i + 1
         fin_index = lot_indices[i+1] if i + 1 < len(lot_indices) else df.shape[0]
-        lot_data = df.iloc[lot_index+1:fin_index, 1:]
+        lot_data = df.iloc[lot_index+1:fin_index, 1:3]
 
         titre_cle = f"TITRE_AXE{lot_num}"
         contenu_cle = f"AXE{lot_num}"
