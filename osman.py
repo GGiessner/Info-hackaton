@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-chemin_fichier = "Gjoa MdP/Exemple 2/20250401-Devis-Client-Exemple 2.xlsx"
+chemin_fichier = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
 
 def df_to_string(dataframe):
     """Transforme un DataFrame en chaîne avec les règles demandées."""
