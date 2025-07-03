@@ -176,3 +176,19 @@ if __name__ == "__main__":
         resultats["Descriptions similaires issues du catalogue"] = descriptions_proches
 
     print(json.dumps(resultats, indent=2, ensure_ascii=False))
+
+def proposition():
+    exemple1 = extraire_texte_exemple(notes_ex1_path, devis_ex1_path, prop_ex1_path)
+    exemple2 = extraire_texte_exemple(notes_ex2_path, devis_ex2_path, prop_ex2_path)
+    test_input = extraire_texte_test(notes_3_path, devis_3_path, Template)
+
+    prompt = generer_prompt(exemple1, exemple2, test_input, sections_voulues.keys())
+    resultats = interroger_mistral(prompt)
+
+    if "Contexte" in resultats:
+        df = pd.read_excel(catalogue_path)
+        descriptions_catalogue = df["Description"].dropna().astype(str).tolist()
+        descriptions_proches = trouver_descriptions_proches_mistral(resultats["Contexte"], descriptions_catalogue)
+        resultats["Descriptions similaires issues du catalogue"] = descriptions_proches
+    
+    return resultats
