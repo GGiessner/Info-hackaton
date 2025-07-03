@@ -1,5 +1,6 @@
 import pandas as pd 
 from docx import Document
+from generateur_proposition import proposition
 
 DEVIS = "Gjoa MdP/Exemple 1/20250631-Client-Sujet-Devis exemple 1.xlsx"
 df_devis = pd.read_excel(DEVIS)
@@ -7,6 +8,7 @@ REFERENCE = "reference.xlsx"
 df_reference = pd.read_excel(REFERENCE)
 dict = {}
 word = Document("Template.docx")
+Contexte_Reference = proposition()
 
 def extraire(df, ligne, colonne):
     dict[ligne] = df[ligne][colonne]

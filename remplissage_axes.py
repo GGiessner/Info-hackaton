@@ -16,9 +16,9 @@ def parser_sous_axes(texte_axe):
 
 def generer_texte_mistral(sous_axe, description=None):
     if description:
-        prompt = f"Génère une phrase pour décrire le sous-axe suivant, dans le cadre d'un conseil en stratégie: « {sous_axe} », en t'appuyant sur la descriptiondescription: « {description} »."
+        prompt = f"Génère une courte phrase en français (peut inclure des mots tecnhiques en anglais) pour décrire succintement le sous-axe suivant, dans le cadre d'un conseil en stratégie: « {sous_axe} », en t'appuyant sur la descriptiondescription: « {description} »."
     else:
-        prompt = f"Génère une courte phrase pour décrire le sous-axe suivant, dans le cadre d'un conseil en stratégie: « {sous_axe} »."
+        prompt = f"Génère une courte phrase en français (peut inclure des mots tecnhiques en anglais) pour décrire succintement le sous-axe suivant, dans le cadre d'un conseil en stratégie: « {sous_axe} »."
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
