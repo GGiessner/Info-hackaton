@@ -177,12 +177,9 @@ if __name__ == "__main__":
     print("Appel à Mistral via Ollama...")
     resultats = interroger_mistral(prompt)
 
-    print("Rendu final dans Word...")
-    enregistrer_resultats_word(resultats, "proposition_test.docx")
-
     if "Contexte" in resultats:
         print("Recherche de descriptions similaires...")
         descriptions_proches = trouver_descriptions_proches(
             catalogue_path, texte_ref=resultats["Contexte"], top_n=9
         )
-        ajouter_descriptions_word("proposition.docx", descriptions_proches)
+        ajouter_descriptions_word("proposition_test.docx", descriptions_proches)

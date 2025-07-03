@@ -3,18 +3,17 @@ import docx
 import json
 import openpyxl
 import requests
-from docx.shared import Pt
-from docx.enum.style import WD_STYLE_TYPE
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
 
 # === FONCTIONS UTILITAIRES ===
 
 def lire_docx(path):
-    """Lit un fichier DOCX et retourne le texte brut concaténé."""
     doc = docx.Document(path)
     return "\n".join([p.text.strip() for p in doc.paragraphs if p.text.strip()])
 
 def lire_xlsx(path):
-    """Lit un fichier Excel et retourne le contenu concaténé des cellules non vides."""
     wb = openpyxl.load_workbook(path, data_only=True)
     contenu = []
     for sheet in wb.worksheets:
@@ -26,15 +25,12 @@ def lire_xlsx(path):
 
 def extraire_texte_exemple(notes_path, devis_path, prop_path):
     notes = lire_docx(notes_path)
-    devis = lire_xlsx(devis_path)
     prop = lire_docx(prop_path)
-    return [notes, devis, prop]
+    return [notes, None, prop]
 
 def extraire_texte_test(notes_path, devis_path, template_path):
     notes = lire_docx(notes_path)
-    devis = lire_xlsx(devis_path)
-    template = lire_docx(template_path)
-    return [notes, devis, template]
+    return [notes, None, None]
 
 def generer_prompt(ex1, ex2, test_input, sections_demandées):
     sections = "\n".join(f"- {s}" for s in sections_demandées)
@@ -76,7 +72,6 @@ Je veux une réponse personnalisée!
 """
 
 def interroger_mistral(prompt):
-    """Envoie le prompt à Ollama/Mistral et renvoie la réponse décodée en dict."""
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
@@ -99,18 +94,49 @@ def interroger_mistral(prompt):
             print("Erreur de parsing JSON. Contenu reçu :\n", texte)
             return {}
 
-def enregistrer_resultats_word(resultats, sortie_path):
-    doc = docx.Document()
+def trouver_descriptions_proches_mistral(texte_contexte, catalogue_textes):
+    prompt = f"""
+Voici un extrait de texte décrivant une situation client :
 
-    for section, texte in resultats.items():
-        doc.add_heading(section, level=1)
-        for paragraphe in texte.split("\n"):
-            if paragraphe.strip():
-                doc.add_paragraph(paragraphe.strip())
-        doc.add_page_break()
+{texte_contexte}
 
-    doc.save(sortie_path)
-    print(f"Document Word généré : {sortie_path}")
+Voici une liste de descriptions de projets :
+{json.dumps(catalogue_textes, indent=2)}
+
+Sélectionne les 9 descriptions les plus proches ou les plus utiles pour illustrer ce projet, dans le même format (liste JSON de chaînes).
+"""
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/generate",
+            json={"model": "mistral", "prompt": prompt, "stream": False}
+        )
+        response.raise_for_status()
+        texte = response.json()["response"]
+    except requests.RequestException as e:
+        print(f"Erreur lors de la requête à Mistral pour les descriptions : {e}")
+        return []
+
+    try:
+        descriptions = json.loads(texte)
+        # Si la réponse contient des objets (dict), extraire uniquement les champs "description"
+        if isinstance(descriptions, list) and descriptions and isinstance(descriptions[0], dict):
+            descriptions = [d.get("description", "") for d in descriptions]
+        # Supprimer doublons et chaînes vides
+        descriptions_uniques = list(dict.fromkeys([d.strip() for d in descriptions if d.strip()]))
+        # Limiter à 9 descriptions max (au cas où)
+        return descriptions_uniques[:9]
+    except json.JSONDecodeError:
+        json_start = texte.find("[")
+        json_end = texte.rfind("]") + 1
+        try:
+            descriptions = json.loads(texte[json_start:json_end])
+            if isinstance(descriptions, list) and descriptions and isinstance(descriptions[0], dict):
+                descriptions = [d.get("description", "") for d in descriptions]
+            descriptions_uniques = list(dict.fromkeys([d.strip() for d in descriptions if d.strip()]))
+            return descriptions_uniques[:9]
+        except:
+            print("Erreur de parsing JSON (descriptions). Contenu reçu :\n", texte)
+            return []
 
 # === CHEMINS DES FICHIERS ===
 
@@ -125,6 +151,7 @@ prop_ex2_path  = "Gjoa MdP/Exemple 2/20250402-Gjoa-Client-Exemple 2-Proposition.
 notes_3_path   = "Gjoa MdP/Test/Test - notes FC.docx"
 devis_3_path   = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"
 Template       = "Template.docx"
+catalogue_path = "Gjoa MdP/202209-Liste références et bilans projets - extract MdP.xlsx"
 
 # === SECTIONS À GÉNÉRER ===
 
@@ -135,16 +162,17 @@ sections_voulues = {
 # === PIPELINE PRINCIPAL ===
 
 if __name__ == "__main__":
-    print("Lecture des exemples...")
     exemple1 = extraire_texte_exemple(notes_ex1_path, devis_ex1_path, prop_ex1_path)
     exemple2 = extraire_texte_exemple(notes_ex2_path, devis_ex2_path, prop_ex2_path)
     test_input = extraire_texte_test(notes_3_path, devis_3_path, Template)
 
-    print("Génération du prompt...")
     prompt = generer_prompt(exemple1, exemple2, test_input, sections_voulues.keys())
-
-    print("Appel à Mistral via Ollama...")
     resultats = interroger_mistral(prompt)
 
-    print("Rendu final dans Word...")
-    enregistrer_resultats_word(resultats, "proposition_test.docx")
+    if "Contexte" in resultats:
+        df = pd.read_excel(catalogue_path)
+        descriptions_catalogue = df["Description"].dropna().astype(str).tolist()
+        descriptions_proches = trouver_descriptions_proches_mistral(resultats["Contexte"], descriptions_catalogue)
+        resultats["Descriptions similaires issues du catalogue"] = descriptions_proches
+
+    print(json.dumps(resultats, indent=2, ensure_ascii=False))
