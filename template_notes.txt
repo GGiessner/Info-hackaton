@@ -5,9 +5,9 @@ Société::
 Adresse::
 CP Ville – France::
 secteur::
-Objet ::
-Date du document:: 
-contact client::
+Objet::
+Date:: 
+le client::
 
 
 Notes pour la rédaction du contrat:

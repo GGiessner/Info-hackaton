@@ -10,7 +10,7 @@ WORD_OUTPUT = docs.sortie_path
 doc = Document(WORD_TEMPLATE)
 
 ## Infos notes
-
+"""
 notes_data = {}
 with open(NOTES_FILE, 'r') as f:
     for line in f:
@@ -24,13 +24,15 @@ for paragraph in doc.paragraphs:
     for match in re.finditer(r'\{1(\w+)\}', paragraph.text):
         ident = match.group(1)
         if ident in notes_data:
+            print(" 1 ", paragraph.text)
+            print(" 2 ", paragraph.text.replace(match.group(0), notes_data[ident]))
             paragraph.text = paragraph.text.replace(match.group(0), notes_data[ident])
 
 # Sauvegarder nouveau Word
 
 doc.save(WORD_OUTPUT)
 print(f" Nouveau document créé : {WORD_OUTPUT}")
-
+"""
 
 # Autre possibilité
 
