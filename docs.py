@@ -17,9 +17,10 @@ template_mod_path = "Template_mod.docx"
 
 ### Voici la zone où vous pouvez apporter des modifications:
 
-notes_3_path = "Gjoa MdP/Test/Test - notes FC.docx"                     #Lien vers les notes prises pendant l'entretien
+notes_3_path = "Gjoa MdP\Test\Test - notes FC.docx"                     #Lien vers les notes prises pendant l'entretien
 devis_3_path = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"        #Lien vers le devis proposé à l'entreprise cliente
 txt_path = 'notes.txt'
 template_Note_path='template_notes.docx'
+test_notes_path = "Test_notes.docx"
 
 sortie_path = "contrat.docx"

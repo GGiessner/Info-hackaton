@@ -2,8 +2,8 @@ from docx import Document
 import docs
 
 # Chemins des fichiers
-docx_path = docs.template_mod_path
-word_path = docs.template_Notes_path
+docs_path = docs.template_path
+word_path = "Test_notes.docx"
 sortie_path = docs.sortie_path
 
 # Charger le document Word contenant les associations
@@ -19,12 +19,12 @@ for paragraph in associations_doc.paragraphs:
             associations[identifiant.strip()] = valeur.strip()
 
 # Charger le document Word à modifier
-doc = Document(docx_path)
+doc = Document(docs_path)
 
 # Fonction pour remplacer les identifiants dans le texte
 def replace_identifiers(text):
     for identifiant, valeur in associations.items():
-        placeholder = "{1" + identifiant + "}"
+        placeholder = "[" + identifiant + "]"
         if placeholder in text:
             text = text.replace(placeholder, valeur)
     return text

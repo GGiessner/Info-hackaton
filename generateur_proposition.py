@@ -12,7 +12,7 @@ import docs
 
 def lire_docx(path):
     doc = docx.Document(path)
-    return "\n".join([p.text.strip() for p in doc.paragraphs if p.text.strip()])
+    return "\n".join([p.text.strip() for p in doc.paragraphs[9:] if p.text.strip()])
 
 def lire_xlsx(path):
     wb = openpyxl.load_workbook(path, data_only=True)
