@@ -6,7 +6,7 @@ docs_path = docs.template_path
 word_path = docs.test_notes_path
 sortie_path = docs.sortie_path
 
-def Word_note(docs_path):
+def Word_note(doc):
     # Charger le document Word contenant les associations
     associations_doc = Document(word_path)  # Utilisez word_path au lieu de associations_docx_path
 
@@ -20,7 +20,7 @@ def Word_note(docs_path):
                 associations[identifiant.strip()] = valeur.strip()
 
     # Charger le document Word à modifier
-    doc = Document(docs_path)
+    doc = doc
 
     # Fonction pour remplacer les identifiants dans le texte
     def replace_identifiers(text):
