@@ -69,7 +69,7 @@ def ajout_dico(df, colonne):
 
 Prix = ajout_dico(df_devis, 12)
 
-if __name__ == "__main__":
+def main():
     texte_a_remplacer = "[Axes_cadrage]"
     liste_elements = Prix
     modifie_doc_bullet(word, texte_a_remplacer, liste_elements)

@@ -1,1 +1,2 @@
-import insere_text
+from insere_text import main
+main()

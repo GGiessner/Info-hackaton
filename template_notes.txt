@@ -1,8 +1,0 @@
-Nom prénom du ou des destinataires::
-Société::
-Adresse::
-CP Ville – France::
-secteur::
-Objet::
-Date:: 
-le client::
