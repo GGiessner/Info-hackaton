@@ -7,11 +7,12 @@ from docx.oxml import OxmlElement
 
 DEVIS = docs.devis_3_path
 df_devis = pd.read_excel(DEVIS)
-REFERENCE = "reference.xlsx"
+REFERENCE = docs.reference
 df_reference = pd.read_excel(REFERENCE)
-word = Document("Template.docx")
+word = Document(docs.template_path)
 Contexte_Reference = proposition() #contexte et ref contexte:texte, reference:liste de texte
 Axes_remplis = remplissage() # Titre des axes et sous axes titres:liste de sous axes
+test_notes = docs.test_notes_path
 
 
 def modifie_doc(doc, remplace, remplacant):
@@ -51,11 +52,6 @@ def modifie(doc, dict):
             remplacant = dict[key]
             modifie_doc(doc, remplace, remplacant)
 
-def creation_contrat(doc, dict, doc_sortie):
-    for elem in dict.keys():
-        modifie_doc(doc, elem, dict[elem])
-    doc.save(doc_sortie)
-
 # donne le dictionnaire avec comme clé le nom du lot et comme valeur le prix (colonne 12)
 
 def ajout_dico(df, colonne):
@@ -65,23 +61,21 @@ def ajout_dico(df, colonne):
     while colonne_prix[i] != "Total arrondi":
         i = i+1
     i = i+1
-    for j in range(i, len(colonne_prix)):
-        if colonne_prix[j] != None:
-            list.append(df_devis.iloc[j, 0] + f" : {colonne_prix[j]}")
+    for j in range(i + 1, len(colonne_prix)):
+        if isinstance(colonne_prix[j], int) and not isinstance(colonne_prix[j], bool):
+            list.append(df_devis.iloc[j, 0] + f" : {colonne_prix[j]} euros")
     return list
 
-#Prix = ajout_dico(df_devis, 12)
-
+Prix = ajout_dico(df_devis, 12)
 
 if __name__ == "__main__":
-      # ✅ Une chaîne (nom du fichier), pas un objet
-    #texte_a_remplacer = "[Axes_cadrage]"
-    #liste_elements = Prix
-    #modifie_doc_bullet(word, texte_a_remplacer, liste_elements)
+    texte_a_remplacer = "[Axes_cadrage]"
+    liste_elements = Prix
+    modifie_doc_bullet(word, texte_a_remplacer, liste_elements)
 
     modifie(word, Contexte_Reference)
     modifie(word, Axes_remplis)
 
-    fichier_sortie = "fichier_modifie.docx"
+    fichier_sortie = docs.sortie_path
     word.save(fichier_sortie)
-    print("✅ Document généré :", fichier_sortie)
+    print("Document généré :", fichier_sortie)
