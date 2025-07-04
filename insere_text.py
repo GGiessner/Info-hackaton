@@ -12,6 +12,7 @@ df_reference = pd.read_excel(REFERENCE)
 word = Document(docs.template_path)
 Contexte_Reference = proposition() #contexte et ref contexte:texte, reference:liste de texte
 Axes_remplis = remplissage() # Titre des axes et sous axes titres:liste de sous axes
+test_notes = docs.test_notes_path
 
 
 def modifie_doc(doc, remplace, remplacant):
