@@ -4,6 +4,7 @@ from generateur_proposition import proposition
 from remplissage_axes import remplissage
 import docs
 from docx.oxml import OxmlElement
+from Notes_word import Word_note
 
 DEVIS = docs.devis_3_path
 df_devis = pd.read_excel(DEVIS)
@@ -75,6 +76,7 @@ if __name__ == "__main__":
 
     modifie(word, Contexte_Reference)
     modifie(word, Axes_remplis)
+    Word_note(word)
 
     fichier_sortie = docs.sortie_path
     word.save(fichier_sortie)

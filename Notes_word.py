@@ -6,7 +6,7 @@ docs_path = docs.template_path
 word_path = docs.test_notes_path
 sortie_path = docs.sortie_path
 
-def Word_note():
+def Word_note(docs_path):
     # Charger le document Word contenant les associations
     associations_doc = Document(word_path)  # Utilisez word_path au lieu de associations_docx_path
 
@@ -46,5 +46,3 @@ def Word_note():
                 for paragraph in cell.paragraphs:
                     paragraph.text = replace_identifiers(paragraph.text)
 
-
-Word_note()

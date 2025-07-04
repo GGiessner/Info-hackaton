@@ -149,9 +149,9 @@ notes_ex2_path = docs.notes_ex2_path
 devis_ex2_path = docs.devis_ex2_path
 prop_ex2_path  = docs.prop_ex2_path
 
-notes_3_path   = docs.notes_3_path
+notes_3_path   = docs.test_notes_path
 devis_3_path   = docs.devis_3_path
-Template       = "Template.docx"
+Template       = docs.template_path
 catalogue_path = "Gjoa MdP/202209-Liste références et bilans projets - extract MdP.xlsx"
 
 # === SECTIONS À GÉNÉRER ===
