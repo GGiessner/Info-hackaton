@@ -3,7 +3,7 @@ import docs
 
 # Chemins des fichiers
 docs_path = docs.template_path
-word_path = "Test_notes.docx"
+word_path = docs.test_notes_path
 sortie_path = docs.sortie_path
 
 # Charger le document Word contenant les associations

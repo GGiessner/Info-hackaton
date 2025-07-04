@@ -21,6 +21,6 @@ notes_3_path = "Gjoa MdP\Test\Test - notes FC.docx"                     #Lien ve
 devis_3_path = "Gjoa MdP/Test/20250515-Devis-client-projet.xlsx"        #Lien vers le devis proposé à l'entreprise cliente
 txt_path = 'notes.txt'
 template_Note_path='template_notes.docx'
-test_notes_path = "Test_notes.docx"
+test_notes_path = "Test_Notes.docx"
 
 sortie_path = "contrat.docx"
