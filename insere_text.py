@@ -7,9 +7,9 @@ from docx.oxml import OxmlElement
 
 DEVIS = docs.devis_3_path
 df_devis = pd.read_excel(DEVIS)
-REFERENCE = "reference.xlsx"
+REFERENCE = docs.reference
 df_reference = pd.read_excel(REFERENCE)
-word = Document("Template.docx")
+word = Document(docs.template_path)
 Contexte_Reference = proposition() #contexte et ref contexte:texte, reference:liste de texte
 Axes_remplis = remplissage() # Titre des axes et sous axes titres:liste de sous axes
 
@@ -75,6 +75,6 @@ if __name__ == "__main__":
     modifie(word, Contexte_Reference)
     modifie(word, Axes_remplis)
 
-    fichier_sortie = "fichier_modifie.docx"
+    fichier_sortie = docs.sortie_path
     word.save(fichier_sortie)
     print("Document généré :", fichier_sortie)
