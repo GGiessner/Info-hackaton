@@ -29,6 +29,8 @@ Pour vérifier le bon fonctionnement de l'installation, mettre la commande "olla
 Utiliser le programme pour générer un contrat:
 
 
+Bien utiliser le template de notes Word, pour être sûr de transmettre toutes les informations au programme. Pour ce faire, COPIER ce template avant de le modifier (il ne faut absolument pas modifier la version originale). Je vous laisse notre Test_Notes.docx, qui nous a permis de générer le document que nous vous avons présenté durant la restitution
+
 Aller dans un terminal, pour se placer dans le bon dossier avant d'ouvrir VS Code. La commande est "cd {chemin d'accès}". Une fois dans le dossier Info-hackaton, taper "code ." dans le terminal pour ouvrir VS Code directement dans ce dossier. Cela permet de garder les bons chemins d'accès pour les dossiers d'entrainement de l'IA
 
 Ensuite, il faudra indiquer le chemin d'accès de la prise de note et du devis aux endroits dédiés, dans le programme docs.py. C'est indiqué dans la partie basse du programme. Il ne faut pas toucher au reste, car ce sont les documents qui permettent l'entraînement du modèle
