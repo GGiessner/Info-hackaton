@@ -46,7 +46,5 @@ def Word_note():
                 for paragraph in cell.paragraphs:
                     paragraph.text = replace_identifiers(paragraph.text)
 
-    # Sauvegarder le document modifié
-    doc.save(sortie_path)
 
 Word_note()
