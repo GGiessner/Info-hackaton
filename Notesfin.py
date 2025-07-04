@@ -1,9 +1,10 @@
 from docx import Document
+import docs
 
 # Chemins des fichiers
-docx_path = "Template_mod.docx"
-txt_path = 'notes.txt'
-output_docx_path = './result.docx'
+docx_path = docs.template_path
+txt_path = docs.txt_path
+output_docx_path = docs.sortie_path
 
 # Charger le document Word
 doc = Document(docx_path)
@@ -19,7 +20,7 @@ with open(txt_path, 'r', encoding='utf-8') as file:
 # Fonction pour remplacer les identifiants dans le texte
 def replace_identifiers(text):
     for identifiant, valeur in associations.items():
-        placeholder = "{" + identifiant + "}"
+        placeholder = "[" + identifiant + "]"
         if placeholder in text:
             text = text.replace(placeholder, valeur)
     return text
