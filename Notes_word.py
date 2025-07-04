@@ -2,7 +2,7 @@ from docx import Document
 import docs
 
 # Chemins des fichiers
-docx_path = docs.template_mod_path
+docs_path = docs.template_mod_path
 word_path = docs.template_Notes_path
 sortie_path = docs.sortie_path
 
